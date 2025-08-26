@@ -1,4 +1,4 @@
-import styles from "../css/HeaderStyles.css";
+import styles from "../css/HeaderStyles.modile.css";
 
 function Header() {
   return (
