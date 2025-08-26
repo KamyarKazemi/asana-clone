@@ -1,4 +1,3 @@
-import styles from "../css/HeaderStyles.module.css";
 import {
   FaBox,
   FaAddressBook,
@@ -8,33 +7,28 @@ import {
   FaBorderNone,
   FaGear,
 } from "react-icons/fa6";
+import { useState } from "react";
 
-function Header() {
+function Sidebar() {
+  const [active, setActive] = useState("box");
+
+  const navItems = [
+    { id: "box", icon: <FaBox />, label: "Dashboard" },
+    { id: "address", icon: <FaAddressBook />, label: "Contacts" },
+    { id: "merge", icon: <FaCodeMerge />, label: "Merge Code" },
+    { id: "files", icon: <FaFileLines />, label: "Files" },
+    { id: "magic", icon: <FaWandMagicSparkles />, label: "Magic Tools" },
+    { id: "border", icon: <FaBorderNone />, label: "Borders" },
+    { id: "settings", icon: <FaGear />, label: "Settings" },
+  ];
+
   return (
     <>
-      <div
-        className={`p-2 fixed left-5 bottom-110 rounded-2xl text-2xl  ${styles.header}`}
-      >
-        <div className="grid grid-cols-2 z-2000 items-center">
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex mb-5">
-              <FaBox />
-            </div>
-            <div className="flex flex-col gap-3">
-              <FaAddressBook />
-              <FaCodeMerge />
-              <FaFileLines />
-              <FaWandMagicSparkles />
-            </div>
-            <div className="flex flex-col gap-3">
-              <FaBorderNone />
-              <FaGear />
-            </div>
-          </div>
-        </div>
-      </div>
+      <aside className="fixed left-0 bottom-0 h-screen w-20 bg-gray-900 text-white flex flex-col items-center py-6 shadow-2xl rounded-r-2xl">
+        <div>gg</div>
+      </aside>
     </>
   );
 }
 
-export default Header;
+export default Sidebar;
