@@ -1,3 +1,4 @@
+import styles from "../css/HeaderStyles.module.css";
 import {
   FaBox,
   FaAddressBook,
@@ -24,7 +25,9 @@ function Sidebar() {
 
   return (
     <>
-      <aside className="fixed left-0 bottom-0 h-screen w-20 bg-gray-900 text-white flex flex-col items-center py-6 shadow-2xl rounded-r-2xl">
+      <aside
+        className={`fixed left-0 bottom-0 h-screen w-20 bg-gray-900 text-white flex flex-col items-center py-6 shadow-2xl rounded-r-2xl ${styles.header}`}
+      >
         <div className="flex flex-col gap-8 mt-6  w-full items-center">
           {navItems.map((item) => (
             <button
@@ -44,6 +47,9 @@ function Sidebar() {
           ))}
         </div>
       </aside>
+      <div className={`fixed ${styles.mobileHeader}`}>
+        <div>mobile header</div>
+      </div>
     </>
   );
 }

@@ -4,8 +4,12 @@ import { Outlet } from "react-router-dom";
 function Root() {
   return (
     <>
-      <Header />
-      <Outlet />
+      <div className="grid grid-cols-3">
+        <Header />
+        <main className="outlet">
+          <Outlet />
+        </main>
+      </div>
     </>
   );
 }
