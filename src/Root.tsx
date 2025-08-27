@@ -3,11 +3,11 @@ import { Outlet } from "react-router-dom";
 
 function Root() {
   return (
-    <div className="h-screen grid grid-rows-2 gap-5">
-      <Header />
+    <div className="h-screen grid grid-rows-[1fr_auto] gap-5">
       <main className="outlet w-full">
         <Outlet />
       </main>
+      <Header />
     </div>
   );
 }
