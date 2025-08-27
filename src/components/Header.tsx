@@ -58,7 +58,7 @@
 
 function Header() {
   return (
-    <div className="row-2">
+    <div className="row-2 bg-violet-600">
       <h1>header</h1>
     </div>
   );

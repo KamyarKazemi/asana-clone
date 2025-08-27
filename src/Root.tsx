@@ -3,14 +3,12 @@ import { Outlet } from "react-router-dom";
 
 function Root() {
   return (
-    <>
-      <div className="grid grid-cols-1 grid-rows-2 gap-5 items-center justify-around h-full">
-        <Header />
-        <main className="outlet">
-          <Outlet />
-        </main>
-      </div>
-    </>
+    <div className="h-screen grid grid-rows-2 gap-5">
+      <Header />
+      <main className="outlet w-full">
+        <Outlet />
+      </main>
+    </div>
   );
 }
 
