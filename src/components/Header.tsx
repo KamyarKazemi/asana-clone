@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa6";
 import { useState } from "react";
 
-function Sidebar() {
+function Header() {
   const [active, setActive] = useState("box");
 
   const navItems = [
@@ -20,6 +20,13 @@ function Sidebar() {
     { id: "files", icon: <FaFileLines />, label: "Files" },
     { id: "magic", icon: <FaWandMagicSparkles />, label: "Magic Tools" },
     { id: "border", icon: <FaBorderNone />, label: "Borders" },
+    { id: "settings", icon: <FaGear />, label: "Settings" },
+  ];
+
+  const mobileNavItems = [
+    { id: "box", icon: <FaBox />, label: "Dashboard" },
+    { id: "merge", icon: <FaCodeMerge />, label: "Merge Code" },
+    { id: "magic", icon: <FaWandMagicSparkles />, label: "Magic Tools" },
     { id: "settings", icon: <FaGear />, label: "Settings" },
   ];
 
@@ -47,11 +54,27 @@ function Sidebar() {
           ))}
         </div>
       </aside>
-      <div className={`fixed ${styles.mobileHeader}`}>
-        <div>mobile header</div>
+      <div
+        className={`fixed bottom-0 w-full left-0 right-0 flex items-center justify-center bg-blue-500 p-2 ${styles.mobileHeader}`}
+      >
+        <div className="flex gap-5 w-full text-2xl items-center justify-around">
+          {mobileNavItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActive(item.id)}
+              className={`p-3 rounded-xl ${
+                active === item.id
+                  ? "bg-gray-700 text-cyan-700"
+                  : "hover:bg-gray-800"
+              }`}
+            >
+              {item.icon}
+            </button>
+          ))}
+        </div>
       </div>
     </>
   );
 }
 
-export default Sidebar;
+export default Header;
