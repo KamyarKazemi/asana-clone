@@ -1,4 +1,4 @@
-import styles from "../css/HeaderStyles.module.css";
+import styles from "../css/headerStyles.module.css";
 import {
   FaBox,
   FaAddressBook,
