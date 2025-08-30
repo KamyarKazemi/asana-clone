@@ -1,4 +1,5 @@
 import styles from "../css/headerStyles.module.css";
+import { FaSearch } from "react-icons/fa";
 import {
   FaBox,
   FaAddressBook,
@@ -21,6 +22,7 @@ function Header() {
     { id: "magic", icon: <FaWandMagicSparkles />, label: "Magic Tools" },
     { id: "border", icon: <FaBorderNone />, label: "Borders" },
     { id: "settings", icon: <FaGear />, label: "Settings" },
+    { id: "search", icon: <FaSearch />, label: "Search for a channel" },
   ];
 
   const mobileNavItems = [
@@ -52,6 +54,18 @@ function Header() {
               </span>
             </button>
           ))}
+        </div>
+        <div className="bg-[#FBFBFB] p-3 rounded absolute left-160 top-70 z-50">
+          <div className={`flex items-center ${styles.searchContainer}`}>
+            <input
+              type="text"
+              placeholder="Search For A Channel..."
+              className="p-3 text-black bg-[#e3e3e3] rounded transition-all ease-in-out focus:bg-[#FBFBFB]"
+            />
+            <FaSearch
+              className={`text-black absolute right-5 ${styles.search}`}
+            />
+          </div>
         </div>
       </aside>
       <div

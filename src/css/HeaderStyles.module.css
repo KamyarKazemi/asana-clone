@@ -2,6 +2,10 @@
   display: none;
 }
 
+.searchContainer > input:focus {
+  width: 20rem;
+}
+
 @media only screen and (max-width: 768px) {
   .header {
     display: none;
