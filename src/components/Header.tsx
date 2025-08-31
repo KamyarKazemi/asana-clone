@@ -10,9 +10,11 @@ import {
   FaGear,
 } from "react-icons/fa6";
 import { useState } from "react";
+import SearchChannel from "./SearchChannel";
 
 function Header() {
   const [active, setActive] = useState("box");
+  const [searchChannelShown, setSearchChannelShown] = useState(false);
 
   const navItems = [
     { id: "box", icon: <FaBox />, label: "Dashboard" },
@@ -22,7 +24,15 @@ function Header() {
     { id: "magic", icon: <FaWandMagicSparkles />, label: "Magic Tools" },
     { id: "border", icon: <FaBorderNone />, label: "Borders" },
     { id: "settings", icon: <FaGear />, label: "Settings" },
-    { id: "search", icon: <FaSearch />, label: "Search for a channel" },
+    {
+      id: "search",
+      icon: (
+        <FaSearch
+          onClick={() => setSearchChannelShown((prev: boolean) => !prev)}
+        />
+      ),
+      label: "Search for a channel",
+    },
   ];
 
   const mobileNavItems = [
@@ -55,18 +65,8 @@ function Header() {
             </button>
           ))}
         </div>
-        <div className="bg-[#FBFBFB] p-3 rounded absolute left-160 top-70 z-50">
-          <div className={`flex items-center ${styles.searchContainer}`}>
-            <input
-              type="text"
-              placeholder="Search For A Channel..."
-              className="p-3 text-black bg-[#e3e3e3] rounded transition-all ease-in-out focus:bg-[#FBFBFB]"
-            />
-            <FaSearch
-              className={`text-black absolute right-5 ${styles.search}`}
-            />
-          </div>
-        </div>
+
+        {searchChannelShown ? <SearchChannel /> : null}
       </aside>
       <div
         className={`fixed bottom-0 w-full left-0 right-0 flex items-center justify-center bg-blue-500 p-2 ${styles.mobileHeader}`}
