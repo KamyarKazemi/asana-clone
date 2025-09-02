@@ -1,29 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchNames } from "../asyncThunks/fetchNames";
+import { fetchSubs } from "../asyncThunks/FetchSubs";
 
-const userSlice = createSlice({
-  name: "users",
+const subsSlice = createSlice({
+  name: "subs",
   initialState: {
     data: [],
-    status: "idle", // idle | loading | succeeded | failed
+    status: "idle",
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchNames.pending, (state) => {
+      .addCase(fetchSubs.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(fetchNames.fulfilled, (state, action) => {
+      .addCase(fetchSubs.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
       })
-      .addCase(fetchNames.rejected, (state, action) => {
+      .addCase(fetchSubs.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload || "Something Went Wrong!";
       });
   },
 });
 
-export default userSlice.reducer;
+export default subsSlice.reducer;

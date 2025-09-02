@@ -2,6 +2,7 @@ import styles from "../css/headerStyles.module.css";
 import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { handleChange, resetValue } from "../redux/slices/searchChannelSlice";
+import { fetchNames } from "../redux/asyncThunks/fetchNames";
 import { fetchSubs } from "../redux/asyncThunks/FetchSubs";
 
 function SearchChannel() {
@@ -12,6 +13,7 @@ function SearchChannel() {
   const handleForm = (e) => {
     e.preventDefault();
     if (searchValue.trim()) {
+      dispatch(fetchNames(searchValue));
       dispatch(fetchSubs(searchValue));
     }
     dispatch(resetValue());

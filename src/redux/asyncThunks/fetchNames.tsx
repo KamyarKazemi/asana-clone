@@ -1,26 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const fetchSubs = createAsyncThunk(
-  "subs/fetch",
+const fetchNames = createAsyncThunk(
+  "names/fetch",
   async (searchTerm, { rejectWithValue }) => {
     try {
-      // get channel info by username
       const res = await axios.get(
         `http://localhost:3005/channels?username=${searchTerm}`
       );
-
-      // if no channel found
-      if (res.data.length === 0) {
-        return rejectWithValue("Channel not found");
-      }
-
-      // return only subs count
-      return res.data[0].subs;
+      return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
     }
   }
 );
 
-export { fetchSubs };
+export { fetchNames };
