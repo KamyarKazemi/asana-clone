@@ -1,7 +1,8 @@
 {
   "channels": [
     {
-      "username": "hollow"
+      "username": "hollow",
+      "subs": "12345"
     }
   ]
 }

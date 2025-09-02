@@ -2,10 +2,12 @@ import styles from "../css/headerStyles.module.css";
 import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { handleChange, resetValue } from "../redux/slices/searchChannelSlice";
+import { fetchSubs } from "../redux/asyncThunks/FetchSubs";
 
 function SearchChannel() {
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.searchChannel.value);
+  const { data, loading, error } = useSelector((state) => state.users);
 
   const handleForm = (e) => {
     e.preventDefault();
