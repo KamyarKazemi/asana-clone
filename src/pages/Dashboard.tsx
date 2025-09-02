@@ -6,6 +6,7 @@ import "react-circular-progressbar/dist/styles.css";
 function Dashboard() {
   return (
     <>
+      <h1>name</h1>
       <div
         className={`grid grid-col-4 grid-rows-2 mt-2 ${styles.gridContainer}`}
       >

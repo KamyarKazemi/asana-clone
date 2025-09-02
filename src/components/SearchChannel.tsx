@@ -11,6 +11,9 @@ function SearchChannel() {
 
   const handleForm = (e) => {
     e.preventDefault();
+    if (searchValue.trim()) {
+      dispatch(fetchSubs(searchValue));
+    }
     dispatch(resetValue());
   };
 
@@ -25,12 +28,13 @@ function SearchChannel() {
             type="text"
             placeholder="Search For A Channel..."
             className="p-3 text-black bg-[#e3e3e3] rounded transition-all ease-in-out focus:bg-[#FBFBFB]"
-            value={searchValue}
+            value={loading ? "Loading!" : searchValue}
             onChange={(e) => dispatch(handleChange(e.target.value))}
           />
           <FaSearch
             className={`text-black absolute right-5 ${styles.search}`}
           />
+          {error ? <p className="text-red-700">error</p> : null}
         </form>
       </div>
     </>
