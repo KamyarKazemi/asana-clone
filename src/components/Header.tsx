@@ -21,7 +21,7 @@ function Header() {
     { id: "address", icon: <FaAddressBook />, label: "Contacts" },
     { id: "merge", icon: <FaCodeMerge />, label: "Merge Code" },
     { id: "files", icon: <FaFileLines />, label: "Files" },
-    { id: "magic", icon: <FaWandMagicSparkles />, label: "Magic Tools" },
+    { id: "magic", icon: <FaWandMagicSparkles />, label: "Ai Anylize" },
     { id: "border", icon: <FaBorderNone />, label: "Borders" },
     { id: "settings", icon: <FaGear />, label: "Settings" },
     {

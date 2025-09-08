@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "React Component Template",
+  "description": "Automatically inserts a basic React component template with hello world content into newly created .tsx and .jsx files in the components directory",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "src/components/*.tsx",
+      "src/components/*.jsx",
+      "src/pages/*.tsx",
+      "src/pages/*.jsx"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A new React component file has been created. Please insert the following template code into the file:\n\nfunction Name() {\n   return (\n <>\n<h1>hello</h1>\n</>\n);\n}\nexport default Name;\n\nMake sure to replace \"Name\" with the actual component name based on the filename. If the file already has content, do not overwrite it."
+  }
+}

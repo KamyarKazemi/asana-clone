@@ -1,0 +1,16 @@
+{
+  "name": "React Component Template Inserter",
+  "description": "Automatically inserts template code into newly created React components",
+  "trigger": {
+    "type": "file_created",
+    "patterns": ["src/**/*.tsx", "src/**/*.jsx"],
+    "conditions": {
+      "file_content_matches": "function\\s+\\w+\\s*\\(\\s*\\)\\s*\\{|const\\s+\\w+\\s*=\\s*\\(\\s*\\)\\s*=>|export\\s+default\\s+function"
+    }
+  },
+  "action": {
+    "type": "agent_execution",
+    "prompt": "A new React component file has been created at {{file_path}}. Please replace the content with this template code:\n\nfunction Name() {\n   return (\n <>\\n<h1>hello</h1>\\n</>\\n);\\n}\\nexport default Name;\n\nMake sure to update the function name 'Name' to match the actual component name based on the filename.",
+    "auto_execute": true
+  }
+}
