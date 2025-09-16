@@ -3,9 +3,12 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useSelector } from "react-redux";
+import type { RootState } from "../redux/store/store";
 
 function Dashboard() {
-  const { data: searchResluts, status } = useSelector((state) => state.users);
+  const { data: searchResluts, status } = useSelector(
+    (state: RootState) => state.users
+  );
 
   // channel name logic
   let channelName;
@@ -70,9 +73,13 @@ function Dashboard() {
 
         <div
           style={{ gridArea: "box2" }}
-          className={`bg-[#FBFBFB] ${styles.gridBox}`}
+          className={`bg-[#FBFBFB] flex flex-col gap-3 p-2  ${styles.gridBox}`}
         >
-          box
+          <div className="flex flex-row justify-between">
+            <h3>Ai Anylizes</h3>
+            <button className="bg-red-500">Anylize</button>
+          </div>
+          <div>ai caption</div>
         </div>
         <div
           style={{ gridArea: "box3" }}

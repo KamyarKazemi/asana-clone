@@ -2,7 +2,16 @@
   "channels": [
     {
       "username": "hollow",
-      "subs": "500"
+      "subs": "500",
+      "videos": [
+        {
+          "title": "title",
+          "caption": "caption",
+          "views": "10",
+          "likes": "5",
+          "dislikes": "1"
+        }
+      ]
     }
   ]
 }

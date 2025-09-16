@@ -2,8 +2,7 @@ import styles from "../css/headerStyles.module.css";
 import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { handleChange, resetValue } from "../redux/slices/searchChannelSlice";
-import { fetchNames } from "../redux/asyncThunks/fetchNames";
-import { fetchSubs } from "../redux/asyncThunks/FetchSubs";
+import { fetchChannelData } from "../redux/asyncThunks/fetchChannelData";
 
 function SearchChannel() {
   const dispatch = useDispatch();
@@ -13,8 +12,7 @@ function SearchChannel() {
   const handleForm = (e) => {
     e.preventDefault();
     if (searchValue.trim()) {
-      dispatch(fetchNames(searchValue));
-      dispatch(fetchSubs(searchValue));
+      dispatch(fetchChannelData(searchValue));
     }
     dispatch(resetValue());
   };
@@ -36,7 +34,7 @@ function SearchChannel() {
           <FaSearch
             className={`text-black absolute right-5 ${styles.search}`}
           />
-          {error ? <p className="text-red-700">error</p> : null}
+          {/* {error ? <p className="text-red-700">error</p> : null} */}
         </form>
       </div>
     </>

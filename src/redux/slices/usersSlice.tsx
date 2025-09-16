@@ -1,27 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchNames } from "../asyncThunks/fetchNames";
+import { fetchChannelData } from "../asyncThunks/fetchChannelData";
+
+interface Channel {
+  username: string;
+  subs: number;
+  videos: object;
+}
+
+interface UsersState {
+  data: Channel[];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+
+const initialState: UsersState = {
+  data: [],
+  status: "idle",
+  error: null,
+};
 
 const userSlice = createSlice({
   name: "users",
-  initialState: {
-    data: [],
-    status: "idle", // idle | loading | succeeded | failed
-    error: null,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchNames.pending, (state) => {
+      .addCase(fetchChannelData.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(fetchNames.fulfilled, (state, action) => {
+      .addCase(fetchChannelData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.data = [action.payload]; // Wrap single channel in array to match expected format
       })
-      .addCase(fetchNames.rejected, (state, action) => {
+      .addCase(fetchChannelData.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload || "Something Went Wrong!";
+        state.error = (action.payload as string) || "Something Went Wrong!";
       });
   },
 });
