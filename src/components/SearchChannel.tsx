@@ -6,10 +6,10 @@ import { fetchChannelData } from "../redux/asyncThunks/fetchChannelData";
 
 function SearchChannel() {
   const dispatch = useDispatch();
-  const searchValue = useSelector((state) => state.searchChannel.value);
-  const { data, loading, error } = useSelector((state) => state.users);
+  const searchValue = useSelector((state: any) => state.searchChannel.value);
+  const { data, status, error } = useSelector((state: any) => state.users);
 
-  const handleForm = (e) => {
+  const handleForm = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchValue.trim()) {
       dispatch(fetchChannelData(searchValue));
@@ -28,7 +28,7 @@ function SearchChannel() {
             type="text"
             placeholder="Search For A Channel..."
             className="p-3 text-black bg-[#e3e3e3] rounded transition-all ease-in-out focus:bg-[#FBFBFB]"
-            value={loading ? "Loading!" : searchValue}
+            value={status === "loading" ? "Loading!" : searchValue}
             onChange={(e) => dispatch(handleChange(e.target.value))}
           />
           <FaSearch

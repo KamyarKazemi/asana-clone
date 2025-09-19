@@ -1,10 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchChannelData } from "../asyncThunks/fetchChannelData";
 
+interface Video {
+  title: string;
+  caption: string;
+  views: string;
+  likes: string;
+  dislikes: string;
+}
+
 interface Channel {
   username: string;
   subs: number;
-  videos: object;
+  videos: Video[];
 }
 
 interface UsersState {

@@ -5,13 +5,52 @@
       "subs": "500",
       "videos": [
         {
-          "title": "title",
-          "caption": "caption",
-          "views": "10",
-          "likes": "5",
+          "title": "welcome to... dying light the beast.",
+          "caption": "dying light is back after a while with return of crane as the main protagonist once more.",
+          "views": "100000",
+          "likes": "1000",
+          "dislikes": "100"
+        }
+      ]
+    },
+    {
+      "username": "jackfrags",
+      "subs": "1000000",
+      "videos": [
+        {
+          "title": "operation firestorm in bf6...",
+          "caption": "operation firestorm is returning from bf4 again in bf6 and it plays amazing!",
+          "views": "500000",
+          "likes": "250000",
+          "dislikes": "1000"
+        }
+      ]
+    },
+    {
+      "username": "luke stephens",
+      "subs": "23500",
+      "videos": [
+        {
+          "title": "new details heave been revealed for cyberpunk 2...",
+          "caption": "someone went to cd project red and you can guess the rest!",
+          "views": "5000",
+          "likes": "100",
           "dislikes": "1"
         }
       ]
     }
-  ]
+  ],
+  "analyze": {
+    "analysis": "Mock AI analysis response",
+    "insights": [
+      "Channel has good engagement rate",
+      "Content strategy is consistent",
+      "Subscriber growth potential identified"
+    ],
+    "recommendations": [
+      "Increase posting frequency",
+      "Focus on trending topics",
+      "Improve thumbnail design"
+    ]
+  }
 }
