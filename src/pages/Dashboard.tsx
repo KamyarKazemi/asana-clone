@@ -5,9 +5,13 @@ import "react-circular-progressbar/dist/styles.css";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../redux/store/store";
 import { postInfoToAi } from "../redux/asyncThunks/postInfoToAi";
+import { motion, AnimatePresence } from "motion/react";
+import { useState } from "react";
 
 function Dashboard() {
   const dispatch = useDispatch<AppDispatch>();
+
+  const [isAiShown, setIsAiShown] = useState(false);
 
   const { data: searchResluts, status } = useSelector(
     (state: RootState) => state.users
@@ -45,7 +49,12 @@ function Dashboard() {
   } = useSelector((state: RootState) => state.infos);
 
   const handleSendToAi = () => {
+    setIsAiShown(true);
     if (status === "succeeded" && searchResluts.length > 0) {
+      console.log("Channel data being sent:", searchResluts[0]);
+      console.log("Username:", searchResluts[0].username);
+      console.log("Subs:", searchResluts[0].subs);
+      console.log("Videos:", searchResluts[0].videos);
       dispatch(postInfoToAi(searchResluts[0]));
     }
   };
@@ -58,7 +67,7 @@ function Dashboard() {
       >
         <div
           style={{ gridArea: "box1" }}
-          className={`bg-[#FBFBFB] p-4 rounded flex flex-col gap-3 ${styles.gridBox}`}
+          className={`bg-[#FBFBFB] p-4 rounded flex flex-col gap-3 ${styles.goalBox}`}
         >
           <div className="flex items-center justify-between">
             <p className="text-[1.2rem]">Subscribers</p>
@@ -92,62 +101,93 @@ function Dashboard() {
         >
           <div className="flex flex-row justify-between">
             <h3>AI Analysis</h3>
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-colors disabled:bg-gray-400"
-              onClick={handleSendToAi}
-              disabled={
-                status !== "succeeded" ||
-                searchResluts.length === 0 ||
-                aiStatus === "loading"
-              }
-            >
-              {aiStatus === "loading" ? "Analyzing..." : "Analyze"}
-            </button>
+            <div>
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-colors disabled:bg-gray-400"
+                onClick={handleSendToAi}
+                disabled={
+                  status !== "succeeded" ||
+                  searchResluts.length === 0 ||
+                  aiStatus === "loading"
+                }
+              >
+                {aiStatus === "loading" ? "Analyzing..." : "Analyze"}
+              </button>
+              {isAiShown ? (
+                <button
+                  onClick={() => setIsAiShown(false)}
+                  className="bg-white text-black-500 hover:bg-blue-600 px-3 py-1 rounded transition-colors mr-1 ml-1"
+                >
+                  Hide
+                </button>
+              ) : null}
+            </div>
           </div>
-          <div className="text-sm max-h-40 overflow-y-auto">
-            {aiStatus === "idle" && (
-              <p className="text-gray-500">Click analyze to get AI insights</p>
-            )}
-            {aiStatus === "loading" && (
-              <p className="text-blue-500">Analyzing channel data...</p>
-            )}
-            {aiStatus === "succeeded" && aiAnalysis && (
-              <div className="space-y-2">
-                <div className="text-green-600 font-medium">
-                  {aiAnalysis.analysis}
-                </div>
-                {aiAnalysis.insights && aiAnalysis.insights.length > 0 && (
-                  <div>
-                    <h4 className="font-semibold text-gray-700">Insights:</h4>
-                    <ul className="list-disc list-inside text-gray-600">
-                      {aiAnalysis.insights.map((insight, index) => (
-                        <li key={index}>{insight}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {aiAnalysis.recommendations &&
-                  aiAnalysis.recommendations.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-gray-700">
-                        Recommendations:
-                      </h4>
-                      <ul className="list-disc list-inside text-gray-600">
-                        {aiAnalysis.recommendations.map((rec, index) => (
-                          <li key={index}>{rec}</li>
-                        ))}
-                      </ul>
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0, height: "7rem" }}
+              animate={
+                isAiShown
+                  ? { opacity: 1, height: "14rem" }
+                  : { opacity: 0, height: "7rem" }
+              }
+              exit={{ opacity: 0, height: "7rem" }}
+              transition={{ duration: 0.5 }}
+              className="text-sm max-h-40 overflow-y-auto"
+            >
+              {isAiShown && (
+                <>
+                  {aiStatus === "idle" && (
+                    <p className="text-gray-500">
+                      Click analyze to get AI insights
+                    </p>
+                  )}
+                  {aiStatus === "loading" && (
+                    <p className="text-blue-500">Analyzing channel data...</p>
+                  )}
+                  {aiStatus === "succeeded" && aiAnalysis && (
+                    <div className="space-y-2">
+                      <div className="text-green-600 font-medium">
+                        {aiAnalysis.analysis}
+                      </div>
+                      {aiAnalysis.insights &&
+                        aiAnalysis.insights.length > 0 && (
+                          <div>
+                            <h4 className="font-semibold text-gray-700">
+                              Insights:
+                            </h4>
+                            <ul className="list-disc list-inside text-gray-600">
+                              {aiAnalysis.insights.map((insight, index) => (
+                                <li key={index}>{insight}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      {aiAnalysis.recommendations &&
+                        aiAnalysis.recommendations.length > 0 && (
+                          <div>
+                            <h4 className="font-semibold text-gray-700">
+                              Recommendations:
+                            </h4>
+                            <ul className="list-disc list-inside text-gray-600">
+                              {aiAnalysis.recommendations.map((rec, index) => (
+                                <li key={index}>{rec}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                     </div>
                   )}
-              </div>
-            )}
-            {aiStatus === "failed" && (
-              <div className="text-red-600">
-                <p className="font-medium">Analysis Failed</p>
-                <p className="text-sm">{aiError}</p>
-              </div>
-            )}
-          </div>
+                  {aiStatus === "failed" && (
+                    <div className="text-red-600">
+                      <p className="font-medium">Analysis Failed</p>
+                      <p className="text-sm">{aiError}</p>
+                    </div>
+                  )}
+                </>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
         <div
           style={{ gridArea: "box3" }}

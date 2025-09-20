@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
-:root {
-  --boxes-height: 14rem;
-}
+/* :root {
+  --ai-box-height: 14rem;
+  --grid-boxes-height: 14rem;
+} */
 
 body {
   background-color: #e9eaf0;
@@ -10,10 +11,6 @@ body {
 
 .outlet {
   margin: 0 0 0 6rem;
-}
-
-.gridBox {
-  height: var(--boxes-height);
 }
 
 @media only screen and (max-width: 768px) {

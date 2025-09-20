@@ -5,8 +5,16 @@
     "box1 box4 box5 box5";
 }
 
-.gridBox {
-  height: var(--boxes-height);
+/* .gridBox {
+  padding: 10px;
+} */
+
+.goalBox {
+  height: 14rem;
+}
+
+.aiBox {
+  min-height: 7rem;
 }
 
 /* .gridBox::before {
