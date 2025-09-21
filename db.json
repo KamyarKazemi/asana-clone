@@ -39,18 +39,5 @@
         }
       ]
     }
-  ],
-  "analyze": {
-    "analysis": "Mock AI analysis response",
-    "insights": [
-      "Channel has good engagement rate",
-      "Content strategy is consistent",
-      "Subscriber growth potential identified"
-    ],
-    "recommendations": [
-      "Increase posting frequency",
-      "Focus on trending topics",
-      "Improve thumbnail design"
-    ]
-  }
+  ]
 }
