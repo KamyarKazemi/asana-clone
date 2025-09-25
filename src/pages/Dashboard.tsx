@@ -13,7 +13,7 @@ function Dashboard() {
   const dispatch = useDispatch<AppDispatch>();
 
   const [isAiShown, setIsAiShown] = useState(false);
-  const [isCommentsShown, setIsCommentsShown] = useState(false);
+  // const [isCommentsShown, setIsCommentsShown] = useState(false);
 
   const { data: searchResluts, status } = useSelector(
     (state: RootState) => state.users
@@ -67,8 +67,7 @@ function Dashboard() {
     }
   };
 
-  const handleShowComments = () => {
-    setIsCommentsShown(true);
+  const getComments = () => {
     if (status === "succeeded" && searchResluts.length > 0) {
       dispatch(fetchComments(searchResluts[0].username));
     }
@@ -206,107 +205,17 @@ function Dashboard() {
         </div>
         <div
           style={{ gridArea: "box3" }}
-          className={`bg-[#FBFBFB] p-3 flex flex-col ${styles.commentsBox}`}
+          className={`bg-[#FBFBFB] p-3 flex flex-col ${styles.gridBox}`}
         >
-          <div className="flex justify-between items-center mb-3">
+          <div className="flex justify-between">
             <h3>Recent Comments</h3>
-            <div>
-              <button
-                className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-colors disabled:bg-gray-400"
-                onClick={handleShowComments}
-                disabled={
-                  status !== "succeeded" ||
-                  searchResluts.length === 0 ||
-                  commentsStatus === "loading"
-                }
-              >
-                {commentsStatus === "loading" ? "Loading..." : "Show"}
-              </button>
-              {isCommentsShown && (
-                <button
-                  onClick={() => setIsCommentsShown(false)}
-                  className="bg-white text-black hover:bg-gray-100 px-3 py-1 rounded transition-colors ml-2"
-                >
-                  Hide
-                </button>
-              )}
-            </div>
-          </div>
-
-          <AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0, height: "2rem" }}
-              animate={
-                isCommentsShown
-                  ? { opacity: 1, height: "10rem" }
-                  : { opacity: 0, height: "2rem" }
-              }
-              exit={{ opacity: 0, height: "2rem" }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
+            <button
+              onClick={getComments}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-colors disabled:bg-gray-400"
             >
-              {isCommentsShown && (
-                <div className="max-h-40 overflow-y-auto space-y-2">
-                  {commentsStatus === "idle" && (
-                    <p className="text-gray-500 text-sm">
-                      Click show to load comments
-                    </p>
-                  )}
-                  {commentsStatus === "loading" && (
-                    <p className="text-blue-500 text-sm">Loading comments...</p>
-                  )}
-                  {commentsStatus === "succeeded" && comments.length > 0 && (
-                    <div className="space-y-3">
-                      {comments.slice(0, 5).map((comment, index) => (
-                        <div
-                          key={comment.id || index}
-                          className="bg-white p-2 rounded border-l-4 border-blue-500"
-                        >
-                          <div className="flex justify-between items-start mb-1">
-                            <span className="font-semibold text-sm text-gray-700">
-                              {comment.author}
-                            </span>
-                            <span className="text-xs text-gray-500">
-                              {comment.timestamp}
-                            </span>
-                          </div>
-                          {comment.videoTitle && (
-                            <p className="text-xs text-blue-600 mb-1 italic">
-                              On: {comment.videoTitle}
-                            </p>
-                          )}
-                          <p className="text-sm text-gray-600 line-clamp-2">
-                            {comment.text}
-                          </p>
-                          {comment.likes && (
-                            <div className="mt-1">
-                              <span className="text-xs text-gray-500">
-                                👍 {comment.likes}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                      {comments.length > 5 && (
-                        <p className="text-xs text-gray-500 text-center">
-                          Showing 5 of {comments.length} comments
-                        </p>
-                      )}
-                    </div>
-                  )}
-                  {commentsStatus === "succeeded" && comments.length === 0 && (
-                    <p className="text-gray-500 text-sm">No comments found</p>
-                  )}
-                  {commentsStatus === "failed" && (
-                    <div className="text-red-600 text-sm">
-                      <p className="font-medium">Failed to load comments</p>
-                      <p>{commentsError}</p>
-                    </div>
-                  )}
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
+              {commentsStatus === "loading" ? "loading..." : "show"}
+            </button>
+          </div>
         </div>
         <div
           style={{ gridArea: "box4" }}

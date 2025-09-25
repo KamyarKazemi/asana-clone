@@ -1,22 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchComments } from "../asyncThunks/fetchComments";
 
-interface Comment {
-  id: string;
-  author: string;
-  text: string;
-  timestamp: string;
-  videoTitle?: string;
-  likes?: number;
-}
-
-interface CommentsState {
-  data: Comment[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-}
-
-const initialState: CommentsState = {
+const initialState = {
   data: [],
   status: "idle",
   error: null,
