@@ -1,20 +1,27 @@
+// redux/commentsThunks.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const fetchComments = createAsyncThunk(
-  "comments/fetch",
-  async (searchTerm: string, { rejectWithValue }) => {
+export const fetchComments = createAsyncThunk(
+  "comments/fetchByUsername",
+  async (searchTerm, { rejectWithValue }) => {
     try {
+      const username = String(searchTerm || "").trim();
+      if (!username) {
+        return rejectWithValue("empty_username");
+      }
+      const safe = encodeURIComponent(username);
       const res = await axios.get(
-        `http://localhost:4000/api/comments?userUsername=${searchTerm}`
+        `http://localhost:4000/api/channels/${safe}/comments`
       );
-      console.table(res.data);
+      // dev-friendly log
+      console.table(res.data.comments ?? res.data);
       return res.data;
-    } catch (err: any) {
-      console.log(err);
-      return rejectWithValue(err.response?.data?.message || err.message);
+    } catch (err) {
+      console.error("fetchComments error:", err?.response?.data ?? err.message);
+      return rejectWithValue(
+        err?.response?.data?.error || err?.message || "unknown_error"
+      );
     }
   }
 );
-
-export { fetchComments };

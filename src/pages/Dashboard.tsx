@@ -13,7 +13,7 @@ function Dashboard() {
   const dispatch = useDispatch<AppDispatch>();
 
   const [isAiShown, setIsAiShown] = useState(false);
-  // const [isCommentsShown, setIsCommentsShown] = useState(false);
+  const [isCommentsShown, setIsCommentsShown] = useState(false);
 
   const { data: searchResluts, status } = useSelector(
     (state: RootState) => state.users
@@ -68,6 +68,7 @@ function Dashboard() {
   };
 
   const getComments = () => {
+    setIsCommentsShown(true);
     if (status === "succeeded" && searchResluts.length > 0) {
       dispatch(fetchComments(searchResluts[0].username));
     }
@@ -207,15 +208,63 @@ function Dashboard() {
           style={{ gridArea: "box3" }}
           className={`bg-[#FBFBFB] p-3 flex flex-col ${styles.gridBox}`}
         >
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <h3>Recent Comments</h3>
-            <button
-              onClick={getComments}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-colors disabled:bg-gray-400"
-            >
-              {commentsStatus === "loading" ? "loading..." : "show"}
-            </button>
+            <div>
+              <button
+                onClick={getComments}
+                className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-colors disabled:bg-gray-400"
+                disabled={
+                  status !== "succeeded" ||
+                  searchResluts.length === 0 ||
+                  commentsStatus === "loading"
+                }
+              >
+                {commentsStatus === "loading" ? "Loading..." : "Show"}
+              </button>
+              {isCommentsShown && (
+                <button
+                  onClick={() => setIsCommentsShown(false)}
+                  className="bg-white text-black-500 hover:bg-blue-600 px-3 py-1 rounded transition-colors mr-1 ml-1"
+                >
+                  Hide
+                </button>
+              )}
+            </div>
           </div>
+
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0, height: "3rem" }}
+              animate={
+                isCommentsShown
+                  ? { opacity: 1, height: "10rem" }
+                  : { opacity: 0, height: "3rem" }
+              }
+              exit={{ opacity: 0, height: "3rem" }}
+              transition={{ duration: 0.5 }}
+              className="text-sm max-h-40 overflow-y-auto mt-2"
+            >
+              {isCommentsShown && (
+                <>
+                  {commentsStatus === "idle" && (
+                    <p className="text-gray-500">Click show to load comments</p>
+                  )}
+                  {commentsStatus === "loading" && (
+                    <p className="text-blue-500">Loading comments...</p>
+                  )}
+                  {commentsStatus === "succeeded" &&
+                    comments &&
+                    comments.map((comment) => (
+                      <div key={comment.id}>{comment.comment}</div>
+                    ))}
+                  {commentsStatus === "failed" ? (
+                    <div>error: {commentsError}</div>
+                  ) : null}
+                </>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
         <div
           style={{ gridArea: "box4" }}
